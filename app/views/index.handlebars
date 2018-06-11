@@ -1,0 +1,80 @@
+<div class ="ready">
+	<div>
+     	<select id="countries">
+ 		{{#each heat}}
+ 
+     		
+		  <option value="{{this.CODE}}">{{this.NAME}}</option>
+		  
+		
+  		{{/each}} 
+  		</select>
+        
+	</div>
+</div>
+<div style="margin-top: 10%;" id="chart_div"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script>
+	$('#countries').val("USA");
+	var trace;
+	
+
+	
+	$.getJSON("/api/USA" ,addData);
+
+	function addData(data){
+
+		var layout = {
+			"autosize": true, 
+			"title": "<b>" + $('#countries option:selected').text() + " Annual Average Temperature<\/b>", 
+			"paper_bgcolor": "rgb(134, 106, 178)", 
+			"plot_bgcolor": "rgb(210, 185, 185)", 
+			"yaxis": {
+				"type": "linear", 
+				"autorange": true, 
+				"title": "Average Temperature"
+			}, 
+			"breakpoints": [], 
+			"titlefont": {"color": "rgb(21, 20, 20)", "size": 22}, 
+			"xaxis": { 
+				"type": "linear", 
+				"autorange": true, 
+				"title": "Year"
+			}, 
+			"font": {"color": "rgb(13, 13, 13)", "family": "Arial", "size": 15}
+		};
+		/*var layout = {
+			title: $("#countries option:selected").text() + ' Annual Average Temperature',
+			xaxis: {
+				title: 'Year'
+			},
+			yaxis: {
+				title: 'Average Temperature'
+			},
+			titlefont: {
+		        family: 'Arial',
+		        size: 12,
+		        color: 'rgb(21, 20, 20)'
+		      }
+		};*/
+		var arr = data.heat;
+		var x = [];
+		var y = [];
+		for(var i = 0; i < arr.length; i++){
+			x.push(arr[i].YEAR);
+			y.push(arr[i].DATA);
+		}
+		trace = {
+			"x": x,
+			"y": y,
+			type: 'scatter',
+			mode: 'lines+markers',
+			name: 'Annual Average Temperature'
+		}
+		var data = [trace];
+		Plotly.newPlot('chart_div', data, layout);
+	}
+
+	$( "#countries" ).change(function() {
+	  $.getJSON("/api/" + $('#countries').val(),addData);
+	});
+</script>

@@ -1,0 +1,27 @@
+{
+  "name": "VisualHeat",
+  "version": "1.0.0",
+  "description": "This application allows the end user to visualize the Continental United States temperature variations from the last 100 years in an interactive way.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex-peralta/VisualHeat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex-peralta/VisualHeat/issues"
+  },
+  "homepage": "https://github.com/alex-peralta/VisualHeat#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mysql": "^2.15.0",
+    "npm": "^6.1.0"
+  }
+}
